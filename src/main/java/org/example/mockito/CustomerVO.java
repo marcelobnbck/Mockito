@@ -5,8 +5,9 @@ public class CustomerVO {
     private Long id;
     private String cpf;
     private String name;
+    private String address;
 
-    public CustomerVO(String cpf, String name) {
+    public CustomerVO(String cpf, String name, String address) {
         this.cpf = cpf;
         this.name = name;
     }
@@ -30,4 +31,13 @@ public class CustomerVO {
     public void setName(String name) {
         this.name = name;
     }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
 }

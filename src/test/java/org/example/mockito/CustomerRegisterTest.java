@@ -32,13 +32,13 @@ public class CustomerRegisterTest {
 
     @Test
     public void register_success() throws InvalidValueException {
-        Customer objectSaved = new Customer("123", "Joao");
+        Customer objectSaved = new Customer("123", "Joao", "Rua da Saudade, 123. Sao Paulo");
 
         when(repository.save(any(Customer.class))).thenReturn(objectSaved);
 
         when(customerRegister.validateRealCpf(anyString())).thenReturn(true);
 
-        CustomerVO vo = new CustomerVO("123", "Joao");
+        CustomerVO vo = new CustomerVO("123", "Joao", "Rua da Saudade, 123. Sao Paulo");
 
         CustomerVO register = customerRegister.register(vo);
 
@@ -51,7 +51,7 @@ public class CustomerRegisterTest {
     public void register_success_verify() throws InvalidValueException {
         CustomerRegister customerRegister2 = mock(CustomerRegister.class);
 
-        CustomerVO vo = new CustomerVO("83488532275", "Joao");
+        CustomerVO vo = new CustomerVO("83488532275", "Joao", "Rua da Saudade, 123. Sao Paulo");
 
         customerRegister2.register(vo);
 
@@ -72,4 +72,5 @@ public class CustomerRegisterTest {
         when(customerRegister.validateRealCpf(anyString())).thenCallRealMethod();
         Assert.assertFalse(customerRegister.validateRealCpf("9999"));
     }
+
 }

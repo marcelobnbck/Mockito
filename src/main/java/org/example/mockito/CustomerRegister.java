@@ -14,7 +14,7 @@ public class CustomerRegister {
         if (!validateRealCpf(vo.getCpf()))
             throw new InvalidValueException("Invalid CPF");
 
-        Customer entity = new Customer(vo.getCpf(), vo.getName());
+        Customer entity = new Customer(vo.getCpf(), vo.getName(), vo.getAddress());
         Customer customerSaved = repository.save(entity);
         vo.setId(customerSaved.getId());
         return vo;
