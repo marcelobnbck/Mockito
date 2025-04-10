@@ -40,4 +40,12 @@ public class Customer {
     public void setAddress(String address) {
         this.address = address;
     }
+
+    public void updateName(String newName) {
+        this.name = newName;
+    }
+
+    public void logUpdate(String oldName, String newName) {
+        System.out.println("Updating client from " + oldName + " to " + newName);
+    }
 }
