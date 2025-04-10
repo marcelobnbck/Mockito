@@ -4,10 +4,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-import org.mockito.Spy;
+import org.mockito.*;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import static org.junit.Assert.assertEquals;
@@ -71,6 +68,41 @@ public class CustomerRegisterTest {
         customerRegister = mock(CustomerRegister.class);
         when(customerRegister.validateRealCpf(anyString())).thenCallRealMethod();
         Assert.assertFalse(customerRegister.validateRealCpf("9999"));
+    }
+
+    @Test
+    public void testCustomerMethodsWithSpy() {
+        Customer customerSpy = spy(new Customer("54771831440", "John Doe", "NY Street, 50 New York"));
+
+        assertEquals("John Doe", customerSpy.getName());
+        assertEquals("54771831440", customerSpy.getCpf());
+        assertEquals("NY Street, 50 New York", customerSpy.getAddress());
+
+        doNothing().when(customerSpy).updateName("Jane Doe");
+
+        customerSpy.updateName("Jane Doe");
+
+        verify(customerSpy).updateName("Jane Doe");
+
+        assertEquals("Jane Doe", customerSpy.getName());
+    }
+
+    @Test
+    public void testClientUpdateWithCaptor() {
+        Customer customerMock = mock(Customer.class);
+
+        when(customerMock.getName()).thenReturn("John Doe");
+        when(customerMock.getCpf()).thenReturn("54771831440");
+
+        customerMock.logUpdate("John Doe", "Jane Doe");
+
+        ArgumentCaptor<String> oldNameCaptor = ArgumentCaptor.forClass(String.class);
+        ArgumentCaptor<String> newNameCaptor = ArgumentCaptor.forClass(String.class);
+
+        verify(customerMock).logUpdate(oldNameCaptor.capture(), newNameCaptor.capture());
+
+        assertEquals("John Doe", oldNameCaptor.getValue());
+        assertEquals("Jane Doe", newNameCaptor.getValue());
     }
 
 }
