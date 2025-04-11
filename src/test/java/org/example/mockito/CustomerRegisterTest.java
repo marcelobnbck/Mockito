@@ -78,7 +78,7 @@ public class CustomerRegisterTest {
         assertEquals("54771831440", customerSpy.getCpf());
         assertEquals("NY Street, 50 New York", customerSpy.getAddress());
 
-        doNothing().when(customerSpy).updateName("Jane Doe");
+        //doNothing().when(customerSpy).updateName("Jane Doe");
 
         customerSpy.updateName("Jane Doe");
 
@@ -88,11 +88,11 @@ public class CustomerRegisterTest {
     }
 
     @Test
-    public void testClientUpdateWithCaptor() {
+    public void testCustomerUpdateWithCaptor() {
         Customer customerMock = mock(Customer.class);
 
-        when(customerMock.getName()).thenReturn("John Doe");
-        when(customerMock.getCpf()).thenReturn("54771831440");
+        //when(customerMock.getName()).thenReturn("John Doe");
+        //when(customerMock.getCpf()).thenReturn("54771831440");
 
         customerMock.logUpdate("John Doe", "Jane Doe");
 
